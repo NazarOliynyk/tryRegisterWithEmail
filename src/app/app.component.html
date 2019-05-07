@@ -1,0 +1,79 @@
+
+<button (click)="signIn()">Sign in</button><br>
+<button (click)="logIn()">Log in</button><br>
+<button (click)="logOut()">Log out</button><br>
+<button (click)="getUsers()">Get users List</button>
+
+<form *ngIf="showRegisterForm" #registerForm="ngForm">
+
+  <label>Login:<br>
+    <input  [(ngModel)]="user.username" type="text"
+            [ngStyle]="{border: usernameRef.invalid && usernameRef.dirty?
+              '3px solid red': '3px solid green'}"
+            ngModel
+            #usernameRef = 'ngModel'
+            required minlength="4"
+            name="username" placeholder="username" size="10"></label><br>
+
+  <label>Password:<br>
+    <input [(ngModel)]="user.password" type="password"
+           [ngStyle]="{border: passwordRef.invalid && passwordRef.dirty?
+              '3px solid red': '3px solid green'}"
+           ngModel
+           #passwordRef = 'ngModel'
+           required minlength="4"
+           name="password" placeholder="password" size="10"></label><br>
+
+  <label>Email:<br>
+    <input [(ngModel)]="user.email" type="email"
+           [ngStyle]="{border: emailRef.invalid && emailRef.dirty?
+              '3px solid red': '3px solid green'}"
+           ngModel
+           #emailRef = 'ngModel'
+           required email
+           name="email" placeholder="email" size="40"></label><br>
+
+  <button [disabled]="registerForm.invalid"
+          (click)="saveUser(registerForm)" type="button">Sign In</button>
+</form>
+
+<h3>{{responseRegistration}}</h3>
+
+<form *ngIf="showLoginForm" #loginForm="ngForm">
+
+  <label>Login:<br>
+    <input  [(ngModel)]="userToLogin.username" type="text"
+            [ngStyle]="{border: usernameRef.invalid && usernameRef.dirty?
+              '3px solid red': '3px solid green'}"
+            ngModel
+            #usernameRef = 'ngModel'
+            required minlength="4"
+            name="username" placeholder="username" size="10"></label><br>
+
+  <label>Password:<br>
+    <input [(ngModel)]="userToLogin.password" type="password"
+           [ngStyle]="{border: passwordRef.invalid && passwordRef.dirty?
+              '3px solid red': '3px solid green'}"
+           ngModel
+           #passwordRef = 'ngModel'
+           required minlength="4"
+           name="password" placeholder="password" size="10"></label><br>
+
+
+  <button [disabled]="loginForm.invalid"
+          (click)="logInto(loginForm)" type="button">Log In</button>
+</form>
+
+<h3>{{responseLogination}}</h3>
+
+<form *ngIf="showUsers">
+  <h2>Users: </h2>
+  <ul>
+    <li *ngFor="let u of users">
+      <p class="userList">{{u.username}}</p><br>
+      <p class="userList">{{u.email}}</p><br>
+      <button (click)="deleteUser(u)">Delete</button>
+    </li>
+  </ul>
+</form>
+<h5>{{responseOnDelete}}</h5>
